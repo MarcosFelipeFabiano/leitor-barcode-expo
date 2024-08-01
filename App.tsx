@@ -1,20 +1,37 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react';
+import { StyleSheet, Button, Modal, Text, View } from 'react-native';
+
+import Scanner from './src/components/Scanner';
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+	const [modalVisible, setModalVisible] = React.useState(false);
+
+	return (
+		<View style={styles.container}>
+			<Modal visible={modalVisible} animationType='fade' onRequestClose={() => setModalVisible(false)}>
+				<View style={styles.modal}>
+					<Scanner />
+					<Button title='Cancelar' onPress={() => setModalVisible(false)} />
+				</View>
+			</Modal>
+
+			<StatusBar style="auto" />
+			<Button title='Escanear' onPress={() => setModalVisible(true)} />
+		</View>
+	);
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+	container: {
+		flex: 1,
+		backgroundColor: '#fff',
+		alignItems: 'center',
+		justifyContent: 'center',
+	},
+	modal: {
+		flex: 1,
+		alignItems: 'center',
+		backgroundColor: 'lightgrey',
+	}
 });
